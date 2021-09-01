@@ -1,4 +1,4 @@
-# gain-soln
+# Gain Solutions
 
 ## Tasks Completed
 
