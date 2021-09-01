@@ -13,10 +13,10 @@
 
 ## Technologies used
 
-1.Node
-2.GraphQL
-3.React
-4.MongoDB
-5.Apollo
-6.Chart.js
-7.Day.js (minimalist js library same as moment.js)
+1. Node
+2. GraphQL
+3. React
+4. MongoDB
+5. Apollo
+6. Chart.js
+7. Day.js (minimalist js library same as moment.js)
