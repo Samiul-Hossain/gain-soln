@@ -20,3 +20,6 @@
 5. Apollo
 6. Chart.js
 7. Day.js (minimalist js library same as moment.js)
+
+##Demo Screenshots
+![image](https://user-images.githubusercontent.com/56602986/131631518-db988511-abb7-4156-9f29-5a4db3d2e415.png)
