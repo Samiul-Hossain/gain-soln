@@ -2,13 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import gql from 'graphql-tag'
 import { useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { set } from 'mongoose'
 
-const UpdateStudent = ({ studentId }) => {
+const EditStudent = ({
+  studentId,
+  studentName,
+  studentEmail,
+  studentPhone,
+  studentDOB,
+}) => {
   const [studentData, setStudentData] = useState({})
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [date, setDate] = useState('')
+  const [name, setName] = useState(studentName)
+  const [email, setEmail] = useState(studentEmail)
+  const [phone, setPhone] = useState(studentPhone)
+  const [date, setDate] = useState(studentDOB)
   const [errors, setErrors] = useState({})
   const [show, setShow] = useState(false)
 
@@ -50,6 +57,7 @@ const UpdateStudent = ({ studentId }) => {
     try {
       await editStudent({
         variables: {
+          id: studentId,
           name,
           email,
           phone,
@@ -92,6 +100,7 @@ const UpdateStudent = ({ studentId }) => {
                 id='name'
                 placeholder='Enter your name'
                 onChange={(e) => setName(e.target.value)}
+                value={name}
                 required
               />
             </div>
@@ -105,6 +114,7 @@ const UpdateStudent = ({ studentId }) => {
                 id='email'
                 placeholder='Enter your email'
                 onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 required
               />
             </div>
@@ -118,6 +128,7 @@ const UpdateStudent = ({ studentId }) => {
                 id='phone'
                 placeholder='Enter your mobile number'
                 onChange={(e) => setPhone(e.target.value)}
+                value={phone}
                 required
               />
             </div>
@@ -130,6 +141,7 @@ const UpdateStudent = ({ studentId }) => {
                 className='form-control'
                 id='date_of_birth'
                 onChange={(e) => setDate(e.target.value)}
+                value={date}
                 required
               />
             </div>
@@ -172,6 +184,7 @@ const GET_STUDENT = gql`
 
 const EDIT_STUDENT = gql`
   mutation UpdateStudent(
+    $id: ID!
     $name: String!
     $email: String!
     $phone: String!
@@ -179,6 +192,7 @@ const EDIT_STUDENT = gql`
   ) {
     updateStudent(
       updateInput: {
+        id: $id
         name: $name
         email: $email
         phone: $phone
@@ -187,4 +201,4 @@ const EDIT_STUDENT = gql`
     )
   }
 `
-export default UpdateStudent
+export default EditStudent

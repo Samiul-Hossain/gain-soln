@@ -106,7 +106,7 @@ const resolvers = {
   Query: {
     async getStudent(_, { studentId }) {
       try {
-        const student = await Student.findOne({ studentId })
+        const student = await Student.findById(studentId)
         return student
       } catch (err) {
         console.log('Error Getting a Student', err)
@@ -152,7 +152,7 @@ const resolvers = {
     },
     async getSubject(_, { subjectId }) {
       try {
-        const subject = await Subject.findOne({ subjectId })
+        const subject = await Subject.findById(subjectId)
         return subject
       } catch (err) {
         console.log('Error Getting a Subject', err)

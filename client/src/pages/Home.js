@@ -6,6 +6,7 @@ import AddStudent from '../components/AddStudent'
 import AddCourse from '../components/AddCourse'
 import DelButton from '../components/DelButton'
 import UpdateStudent from '../components/UpdateStudent'
+import EditStudent from '../components/EditStudent'
 
 const Home = () => {
   //const [studentData, setStudentData] = useState([])
@@ -53,6 +54,9 @@ const Home = () => {
                 Subjects
               </th>
               <th className='table-dark' scope='col'>
+                Update
+              </th>
+              <th className='table-dark' scope='col'>
                 Delete
               </th>
               <th className='table-dark' scope='col'>
@@ -75,6 +79,15 @@ const Home = () => {
                   <td className='col-auto'>{student.date_of_birth}</td>
                   <td className='col-auto'>
                     {student.subjects.map((subj) => subj.name + ' ')}
+                  </td>
+                  <td>
+                    <EditStudent
+                      studentId={student.id}
+                      studentName={student.name}
+                      studentEmail={student.email}
+                      studentPhone={student.phone}
+                      studentDOB={student.date_of_birth}
+                    />
                   </td>
                   <td>
                     <DelButton studentId={student.id} />
