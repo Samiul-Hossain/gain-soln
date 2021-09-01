@@ -95,7 +95,7 @@ const typeDefs = gql`
   type Mutation {
     createStudent(studentInput: StudentInput!): Student!
     deleteStudent(studentId: ID!): String!
-    updateStudent(updateInput: UpdateInput!): String!
+    updateStudent(updateInput: UpdateInput): Student!
 
     enrollSubject(studentId: ID!, subjectName: String!): String!
     unEnrollSubject(studentId: ID!, subjectName: String!): String!
@@ -368,36 +368,35 @@ const resolvers = {
       _,
       { updateInput: { id, name, email, phone, date_of_birth } }
     ) {
-      try {
-        const studentToUpdate = await Student.findById(id)
-        if (studentToUpdate) {
-          const { valid, errors } = validateStudentInput(
-            name,
-            email,
-            phone,
-            date_of_birth
-          )
-          if (!valid) throw new UserInputError('Errors', { errors })
-          await Student.updateOne(
-            { _id: id },
-            {
-              $set: {
-                name: name,
-                email: email,
-                phone: phone,
-                date_of_birth: date_of_birth,
-              },
-            }
-          )
-          return `Details updated for student with the ID: ${id}`
-        } else {
-          console.log(`Student with ID: ${id} does not exist`)
-          return `Student with ID: ${id} does not exist`
-        }
-      } catch (err) {
-        console.log('Error updating student', err)
-        return `Error updating details for student with the ID: ${id}`
+      const emailFound = await Student.findOne({ email })
+      if (emailFound.email !== email) {
+        throw new UserInputError('Email is taken', {
+          errors: {
+            email: 'This email is taken',
+          },
+        })
       }
+
+      const { valid, errors } = validateStudentInput(
+        name,
+        email,
+        phone,
+        date_of_birth
+      )
+      if (!valid) throw new UserInputError('Errors', { errors })
+      await Student.updateOne(
+        { _id: id },
+        {
+          $set: {
+            name: name,
+            email: email,
+            phone: phone,
+            date_of_birth: date_of_birth,
+          },
+        }
+      )
+      updatedStudent = { id, name, email, phone, date_of_birth }
+      return updatedStudent
     },
     async enrollSubject(_, { studentId, subjectName }) {
       try {

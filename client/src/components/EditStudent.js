@@ -11,7 +11,7 @@ const EditStudent = ({
   studentPhone,
   studentDOB,
 }) => {
-  const [studentData, setStudentData] = useState({})
+  // const [studentData, setStudentData] = useState({});
   const [name, setName] = useState(studentName)
   const [email, setEmail] = useState(studentEmail)
   const [phone, setPhone] = useState(studentPhone)
@@ -30,7 +30,7 @@ const EditStudent = ({
     {
       data: { updateStudent: updateMsg } = {},
       loading: { editLoading },
-      error,
+      error: { updateError } = {},
     } = {},
   ] = useMutation(EDIT_STUDENT)
 
@@ -67,6 +67,7 @@ const EditStudent = ({
       setErrors({})
       window.location.assign('/')
     } catch (err) {
+      console.log(err)
       setErrors(err.graphQLErrors[0].extensions.errors)
     }
   }
@@ -115,7 +116,7 @@ const EditStudent = ({
                 placeholder='Enter your email'
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                required
+                disabled
               />
             </div>
             <div className='mb-3'>
@@ -198,7 +199,13 @@ const EDIT_STUDENT = gql`
         phone: $phone
         date_of_birth: $date_of_birth
       }
-    )
+    ) {
+      id
+      name
+      email
+      phone
+      date_of_birth
+    }
   }
 `
 export default EditStudent
