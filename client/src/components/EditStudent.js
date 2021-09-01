@@ -86,7 +86,7 @@ const EditStudent = ({
       <Modal show={show} onHide={handleClose}>
         <form onSubmit={onSubmit}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Student</Modal.Title>
+            <Modal.Title>Update Student</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>

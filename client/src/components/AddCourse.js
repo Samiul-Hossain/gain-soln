@@ -80,7 +80,7 @@ const AddCourse = ({ studentId }) => {
           onAdd(e)
         }}
       >
-        Add Subjects
+        Add
       </Button>
 
       <Modal
@@ -90,7 +90,7 @@ const AddCourse = ({ studentId }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Enroll Subjects</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {enrollments && (
@@ -165,7 +165,7 @@ const AddCourse = ({ studentId }) => {
             Close
           </Button>
           <Button variant='primary' onClick={handleClose}>
-            Understood
+            Okay
           </Button>
         </Modal.Footer>
       </Modal>

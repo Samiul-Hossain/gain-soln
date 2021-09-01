@@ -27,7 +27,7 @@ const DelButton = ({ studentId }) => {
   return (
     <>
       <Button variant='danger' onClick={handleShow}>
-        Delete Student
+        Delete
       </Button>
 
       <Modal show={show} onHide={handleClose}>
